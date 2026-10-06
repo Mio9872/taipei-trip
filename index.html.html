@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>そうだ　台北へ行こう！！</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF3E6;
+    --paper-deep:#F2E6D1;
+    --ink:#2B2420;
+    --ink-soft:#5B4F45;
+    --red:#B23A2E;
+    --red-deep:#8C2A21;
+    --jade:#2F6B58;
+    --jade-deep:#204A3D;
+    --gold:#C9962F;
+    --night:#1C3C3C;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Sans JP", sans-serif;
+    line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{
+    font-family:"Noto Serif JP", serif;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    background:linear-gradient(160deg, var(--red) 0%, var(--red-deep) 55%, var(--night) 100%);
+    color:var(--paper);
+    padding:64px 24px 56px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      radial-gradient(circle at 12% 20%, rgba(255,255,255,0.08) 0, transparent 40%),
+      radial-gradient(circle at 88% 80%, rgba(255,255,255,0.06) 0, transparent 45%);
+  }
+  .hero-inner{max-width:760px;margin:0 auto;position:relative;}
+  .hero-eyebrow{
+    font-size:14px;
+    letter-spacing:.04em;
+    color:#F0D9A6;
+    margin:0 0 14px;
+  }
+  .hero h1{
+    font-size:clamp(30px,6vw,44px);
+    line-height:1.35;
+    margin:0 0 18px;
+    font-weight:700;
+  }
+  .hero p{
+    font-size:15.5px;
+    color:#F3E4D0;
+    max-width:46ch;
+    margin:0;
+  }
+  .hero-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 22px;
+    margin-top:30px;
+    font-size:13.5px;
+    color:#F0D9A6;
+  }
+  .hero-meta span{white-space:nowrap;}
+
+  /* ---------- Theme note ---------- */
+  .theme{
+    margin:-30px 20px 0;
+    background:var(--paper);
+    border:1px solid var(--paper-deep);
+    border-radius:4px;
+    padding:24px 26px;
+    position:relative;
+    z-index:2;
+    box-shadow:0 8px 24px rgba(43,36,32,0.08);
+  }
+  .theme h2{
+    font-size:15px;
+    color:var(--red-deep);
+    margin:0 0 10px;
+    font-weight:600;
+  }
+  .theme p{margin:0;font-size:14.5px;color:var(--ink-soft);}
+
+  /* ---------- Day sections ---------- */
+  .day{margin-top:54px;}
+  .day-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    border-bottom:2px solid var(--ink);
+    padding-bottom:12px;
+    margin-bottom:6px;
+  }
+  .day-num{
+    font-family:"Noto Serif JP",serif;
+    font-size:34px;
+    font-weight:700;
+    color:var(--red);
+    line-height:1;
+  }
+  .day-title-block h2{
+    margin:0;
+    font-size:19px;
+    font-weight:600;
+  }
+  .day-date{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:2px;
+  }
+
+  .timeline{margin-top:22px;}
+  .item{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:4px 18px;
+    padding:16px 0;
+    border-bottom:1px dashed var(--paper-deep);
+  }
+  .item:last-child{border-bottom:none;}
+  .item-time{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    padding-top:3px;
+  }
+  .item-icon{
+    font-size:20px;
+    line-height:1;
+    margin-bottom:4px;
+  }
+  .item-title{
+    font-weight:700;
+    font-size:15.5px;
+    margin:0 0 4px;
+  }
+  .item-desc{
+    font-size:13.8px;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px 8px;
+    margin-top:8px;
+  }
+  .chip{
+    font-size:12.5px;
+    background:var(--paper-deep);
+    color:var(--ink);
+    padding:4px 10px;
+    border-radius:100px;
+  }
+  .chip.jade{background:rgba(47,107,88,0.12);color:var(--jade-deep);}
+  .chip.gold{background:rgba(201,150,47,0.16);color:#8a6414;}
+
+  .note-box{
+    margin-top:14px;
+    font-size:12.8px;
+    color:var(--ink-soft);
+    border-left:3px solid var(--gold);
+    padding:6px 0 6px 12px;
+  }
+
+  /* photo reference row */
+  .photo-row{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+    gap:8px;
+    margin-top:14px;
+  }
+  .photo-card{
+    background:var(--paper-deep);
+    border-radius:3px;
+    padding:14px 10px;
+    text-align:center;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .photo-card .emoji{font-size:26px;display:block;margin-bottom:6px;}
+
+  /* ---------- Flight card ---------- */
+  .flight{
+    margin-top:60px;
+    background:var(--night);
+    color:#EAE2D2;
+    border-radius:4px;
+    padding:26px 28px;
+  }
+  .flight h2{
+    font-size:15px;
+    margin:0 0 18px;
+    color:#F0D9A6;
+    font-weight:600;
+  }
+  .flight-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 0;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+    font-size:14px;
+    gap:12px;
+  }
+  .flight-row:last-child{border-bottom:none;}
+  .flight-route{font-weight:700;}
+  .flight-sub{font-size:12px;color:#B9AF9E;margin-top:2px;}
+  .flight-num{font-size:12.5px;color:#B9AF9E;text-align:right;}
+  .correction{
+    margin-top:16px;
+    font-size:12.5px;
+    color:#F0D9A6;
+    background:rgba(255,255,255,0.06);
+    padding:10px 14px;
+    border-radius:3px;
+  }
+
+  /* ---------- Wishlist ---------- */
+  .wishlist{margin-top:56px;}
+  .wishlist h2{
+    font-size:19px;
+    margin:0 0 22px;
+    font-weight:600;
+  }
+  .wish-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:18px;
+  }
+  .wish-card{
+    background:var(--paper-deep);
+    border-radius:4px;
+    padding:18px 20px;
+  }
+  .wish-card h3{
+    font-size:13.5px;
+    margin:0 0 10px;
+    color:var(--red-deep);
+    font-weight:600;
+  }
+  .wish-card ul{
+    margin:0;
+    padding-left:18px;
+    font-size:13.3px;
+    color:var(--ink-soft);
+  }
+  .wish-card li{margin-bottom:4px;}
+
+  footer{
+    margin-top:60px;
+    text-align:center;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:480px){
+    .hero{padding:48px 18px 44px;}
+    .theme{margin:-26px 12px 0;padding:20px;}
+    .item{grid-template-columns:52px 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">TAIPEI TRIP · 旅のしおり</p>
+    <h1>そうだ　台北へ行こう！！</h1>
+    <p>観光だけじゃなく、台湾の食べ物と日常も一緒に楽しむ4日間。西門町、龍山寺エリアから泰山の家族の元まで、いっぱい食べて、いっぱい歩く旅。</p>
+    <div class="hero-meta">
+      <span>10月16日（金）〜19日（月）</span>
+      <span>台北・新北</span>
+      <span>STARLUX AIRLINES</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="theme">
+    <h2>今回のテーマ</h2>
+    <p>無理に予定を詰め込まず、台湾らしいものをいろいろ体験してもらう旅。グルメと街の雰囲気、そして私の家族にも会ってもらう4日間。</p>
+  </div>
+
+  <!-- DAY 1 -->
+  <div class="day">
+    <div class="day-head">
+      <div class="day-num">01</div>
+      <div class="day-title-block">
+        <h2>台湾到着・西門町</h2>
+        <div class="day-date">10月16日（金）</div>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="item">
+        <div class="item-time">14:10<br>発</div>
+        <div>
+          <div class="item-icon">✈️</div>
+          <p class="item-title">成田発 JX801</p>
+          <p class="item-desc">成田14:10発 → 桃園16:50着。到着後、西門町のホテルへチェックイン。</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-time">夜</div>
+        <div>
+          <div class="item-icon">🥟</div>
+          <p class="item-title">鼎泰豐で乾杯</p>
+          <p class="item-desc">台湾に来たらまず食べてほしい小籠包。焼売、炒飯、酸辣湯、青菜も一緒に。</p>
+          <div class="chips">
+            <span class="chip">小籠包</span><span class="chip">焼売</span><span class="chip">炒飯</span><span class="chip">酸辣湯</span><span class="chip">青菜</span>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-time">夜</div>
+        <div>
+          <div class="item-icon">🌃</div>
+          <p class="item-title">西門町を散歩</p>
+          <p class="item-desc">台湾のドリンクを飲みながら、ネオン輝く西門町の街をゆっくり歩く。</p>
+        </div>
+      </div>
+    </div>
+    <div class="photo-row">
+      <div class="photo-card"><span class="emoji">🥟</span>鼎泰豐・小籠包</div>
+      <div class="photo-card"><span class="emoji">🏮</span>西門町の夜</div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day">
+    <div class="day-head">
+      <div class="day-num">02</div>
+      <div class="day-title-block">
+        <h2>台北の定番観光</h2>
+        <div class="day-date">10月17日（土）</div>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="item">
+        <div class="item-time">朝</div>
+        <div>
+          <div class="item-icon">🥯</div>
+          <p class="item-title">台湾式の朝ごはん</p>
+          <p class="item-desc">飯糰、蛋餅、大根餅、豆漿で台湾の朝を体験。</p>
+          <div class="chips">
+            <span class="chip">飯糰</span><span class="chip">蛋餅</span><span class="chip">大根餅</span><span class="chip">豆漿</span>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-time">午前</div>
+        <div>
+          <div class="item-icon">🏛</div>
+          <p class="item-title">総統府 → 中正紀念堂</p>
+          <p class="item-desc">台北を代表する歴史的建築を巡る。そのあと永康街を散策。</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-time">昼〜午後</div>
+        <div>
+          <div class="item-icon">🍜</div>
+          <p class="item-title">ローカルフード</p>
+          <p class="item-desc">米糕、肉圓、涼麵から気分で。永康街周辺で13:00ごろまでに食べ終えて、故宮へ。</p>
+          <div class="chips jade-row">
+            <span class="chip jade">米糕</span><span class="chip jade">肉圓</span><span class="chip jade">涼麵</span>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-time">14:00〜<br>16:30</div>
+        <div>
+          <div class="item-icon">🏺</div>
+          <p class="item-title">国立故宮博物院</p>
+          <p class="item-desc">台北市士林區至善路二段221號。開館は9:00〜17:00（最終入場16:30）、月曜休館。翠玉白菜など見どころを絞ってゆっくり回る。</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-time">19:00<br>集合</div>
+        <div>
+          <div class="item-icon">🍽</div>
+          <p class="item-title">榮榮園で夕食</p>
+          <p class="item-desc">19時に集合。住所：信義路四段25號 2F。</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-time">夜</div>
+        <div>
+          <div class="item-icon">🌆</div>
+          <p class="item-title">台北101・信義エリア</p>
+          <p class="item-desc">夜の台北101を眺めながら、信義エリアを散歩。</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-time">夜</div>
+        <div>
+          <div class="item-icon">💆‍♀️</div>
+          <p class="item-title">台湾式マッサージ</p>
+          <p class="item-desc">たくさん歩いた疲れを、足つぼ・全身マッサージでリセット。</p>
+        </div>
+      </div>
+    </div>
+    <div class="photo-row">
+      <div class="photo-card"><span class="emoji">🏛</span>総統府</div>
+      <div class="photo-card"><span class="emoji">⛩️</span>中正紀念堂</div>
+      <div class="photo-card"><span class="emoji">🏺</span>故宮博物院</div>
+      <div class="photo-card"><span class="emoji">🌃</span>台北101夜景</div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day">
+    <div class="day-head">
+      <div class="day-num">03</div>
+      <div class="day-title-block">
+        <h2>台湾のローカル体験</h2>
+        <div class="day-date">10月18日（日）</div>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="item">
+        <div class="item-time">朝</div>
+        <div>
+          <div class="item-icon">🍳</div>
+          <p class="item-title">蛋餅・大根餅・豆漿</p>
+          <p class="item-desc">2日目とは違うお店で、もう一度台湾の朝ごはんを。</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-time">昼</div>
+        <div>
+          <div class="item-icon">🍲</div>
+          <p class="item-title">泰山で両親とランチ（真好麥中華料理）</p>
+          <p class="item-desc">住所：新北市泰山區美寧街78號（駐車場あり）。北方麺点や酸菜白肉鍋、家庭的な炒め物が人気のお店。</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-time">午後</div>
+        <div>
+          <div class="item-icon">👨‍👩‍👧</div>
+          <p class="item-title">泰山の家へ</p>
+          <p class="item-desc">台湾の家族・生活を少し見てもらう時間。</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-time">午後〜夜</div>
+        <div>
+          <div class="item-icon">⛰️</div>
+          <p class="item-title">九份（時間があれば）</p>
+          <p class="item-desc">九份老街、台湾茶、芋圓、夜の街並み。泰山での滞在時間によっては無理せず別の予定に変更。</p>
+        </div>
+      </div>
+    </div>
+    <div class="note-box">※ 九份は時間次第。無理せず、泰山でゆっくり過ごすプランに切り替えてもOK。</div>
+    <div class="photo-row">
+      <div class="photo-card"><span class="emoji">🍲</span>真好麥中華料理</div>
+      <div class="photo-card"><span class="emoji">🏮</span>九份老街</div>
+    </div>
+  </div>
+
+  <!-- DAY 4 -->
+  <div class="day">
+    <div class="day-head">
+      <div class="day-num">04</div>
+      <div class="day-title-block">
+        <h2>最後の台湾ごはん</h2>
+        <div class="day-date">10月19日（月）</div>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="item">
+        <div class="item-time">8:00</div>
+        <div>
+          <div class="item-icon">🛕</div>
+          <p class="item-title">龍山寺</p>
+          <p class="item-desc">西門町からMRTで1駅。朝の参拝で、台湾の信仰と暮らしの空気にふれる。</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-time">9:30</div>
+        <div>
+          <div class="item-icon">🏘</div>
+          <p class="item-title">迪化街</p>
+          <p class="item-desc">乾物・お茶・漢方・布問屋が並ぶ老街。お土産探しにも。店は9:00〜10:00ごろから開くところが多い。</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-time">11:00</div>
+        <div>
+          <div class="item-icon">🍢</div>
+          <p class="item-title">西門町で最後の食べ歩き</p>
+          <p class="item-desc">涼麵など、まだ食べていないものを。食べ残したものを制覇！</p>
+          <div class="chips gold-row">
+            <span class="chip gold">涼麵</span><span class="chip gold">地瓜球</span><span class="chip gold">脆皮甜甜圈</span><span class="chip gold">台湾ドリンク</span>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-time">11:45</div>
+        <div>
+          <div class="item-icon">🧳</div>
+          <p class="item-title">ホテル出発 → 桃園空港</p>
+          <p class="item-desc">荷物を受け取って空港へ。第1ターミナルに12:45〜13:00ごろ到着を目安に。</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-time">15:00<br>発</div>
+        <div>
+          <div class="item-icon">✈️</div>
+          <p class="item-title">桃園発 JX804</p>
+          <p class="item-desc">桃園15:00発 → 成田19:25着。台湾旅行のフィナーレ。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLIGHT INFO -->
+  <div class="flight">
+    <h2>フライト情報 — YUMOTO / MASAHIRO</h2>
+    <div class="flight-row">
+      <div>
+        <div class="flight-route">成田 (NRT) → 桃園 (TPE)</div>
+        <div class="flight-sub">10月16日（金） 14:10 発 → 16:50 着 ／ 成田T2・桃園T1</div>
+      </div>
+      <div class="flight-num">JX801<br>STARLUX</div>
+    </div>
+    <div class="flight-row">
+      <div>
+        <div class="flight-route">桃園 (TPE) → 成田 (NRT)</div>
+        <div class="flight-sub">10月19日（月） 15:00 発 → 19:25 着 ／ 桃園T1・成田T2</div>
+      </div>
+      <div class="flight-num">JX804<br>STARLUX</div>
+    </div>
+    <div class="correction">
+      チケット控えの日付は10月16日〜19日（金〜月）になっています。しおりの日程はこちらに合わせて作成しました。
+    </div>
+  </div>
+
+  <!-- WISHLIST -->
+  <div class="wishlist">
+    <h2>今回食べたい台湾グルメ・体験リスト</h2>
+    <div class="wish-grid">
+      <div class="wish-card">
+        <h3>台湾の朝ごはん</h3>
+        <ul><li>飯糰</li><li>蛋餅</li><li>大根餅</li><li>豆漿</li></ul>
+      </div>
+      <div class="wish-card">
+        <h3>有名グルメ</h3>
+        <ul><li>鼎泰豐</li></ul>
+      </div>
+      <div class="wish-card">
+        <h3>ローカルフード</h3>
+        <ul><li>米糕</li><li>肉圓</li><li>涼麵</li><li>台湾式鉄板焼き</li></ul>
+      </div>
+      <div class="wish-card">
+        <h3>夜市・屋台グルメ</h3>
+        <ul><li>鹽酥雞</li><li>地瓜球</li><li>脆皮甜甜圈</li><li>台湾ドリンク</li></ul>
+      </div>
+      <div class="wish-card">
+        <h3>台湾体験</h3>
+        <ul><li>台湾式マッサージ</li><li>足つぼ</li><li>全身マッサージ</li></ul>
+      </div>
+      <div class="wish-card">
+        <h3>観光</h3>
+        <ul><li>西門町</li><li>総統府</li><li>中正紀念堂</li><li>台北101</li><li>九份</li><li>泰山の家</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <footer>台北・新北 4日間 ｜ 10月16日（金）〜19日（月）</footer>
+
+</div>
+</body>
+</html>
